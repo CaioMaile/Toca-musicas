@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toca musica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="janela"></div>
+
+    <div class="janela-faixas">
+        <label for="arquivo">Abrir musica</label>
+        <input type="file" id="arquivo" multiple accept="audio/mpeg, audio/wav">
+    </div>
+
+    <div class="janela-reprodutor">
+        <audio controls></audio>
+    </div>
+
+    <script>
+        const audio = document.querySelector(audio)
+        const entrada = document.querySelector(input)
+
+        const faixas = document.querySelector("div.janela-faixas")
+        const arquivos = new Array()
+
+        entrada.addEventListener("change", () => {
+            const endereco = URL.createObjectURL(entrada.files[0])
+            audio.setAttribute("src", endereco)
+        })
+
+        function Apresentar() {
+            faixas.innerHTML = ""
+            arquivos.forEach((arquivo, indice) => {
+                const musica = document.createElement("div")
+                musica.setAttribute("class", "faixa")
+                musica.setAttribute("onclick", `Tocar(${indice})`)
+                musica.innerHTML = arquivo.nome
+                faixas.appendChild(musica)
+            })
+        }
+        function Tocar(indice) {
+            audio.setAttribute()
+        }
+    </script>
+
+</body>
+</html>
