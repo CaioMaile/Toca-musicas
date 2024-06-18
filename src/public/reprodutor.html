@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="janela"></div>
-
-    <div class="janela-faixas">
-        <label for="arquivo">Abrir musica</label>
-        <input type="file" id="arquivo" multiple accept="audio/mpeg, audio/wav">
+    <div class="janela">        
+        <div class="janela-faixas">
+            <label for="arquivo">Abrir musica</label>
+            <input type="file" id="arquivo" multiple accept="audio/mpeg, audio/wav">
+        </div>
     </div>
 
     <div class="janela-reprodutor">
@@ -19,30 +19,37 @@
     </div>
 
     <script>
-        const audio = document.querySelector(audio)
-        const entrada = document.querySelector(input)
+        const audio = document.querySelector("audio")
+        const entrada = document.querySelector("input")
 
         const faixas = document.querySelector("div.janela-faixas")
         const arquivos = new Array()
-
-        entrada.addEventListener("change", () => {
-            const endereco = URL.createObjectURL(entrada.files[0])
-            audio.setAttribute("src", endereco)
-        })
 
         function Apresentar() {
             faixas.innerHTML = ""
             arquivos.forEach((arquivo, indice) => {
                 const musica = document.createElement("div")
                 musica.setAttribute("class", "faixa")
-                musica.setAttribute("onclick", `Tocar(${indice})`)
+                musica.setAttribute("onclick", `Tocar( ${indice} )`)
+                //musica.setAttribute("onclick", "Tocar("+ indice.toString() +")")
                 musica.innerHTML = arquivo.nome
                 faixas.appendChild(musica)
             })
         }
         function Tocar(indice) {
-            audio.setAttribute()
+            audio.setAttribute("src", arquivos[indice].endereco)
+            console.log(arquivos)
+            console.log(arquivos[indice].endereco)
         }
+        
+        entrada.addEventListener("change", () => {
+            for(var dado of entrada.files) {
+                const nome = dado.name
+                const endereco = URL.createObjectURL(entrada.files[0])
+                arquivos.push({nome,    endereco})
+            }
+            Apresentar()
+        })
     </script>
 
 </body>
